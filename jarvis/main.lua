@@ -36,6 +36,24 @@ function love.load()
 
 end
 
+function love.mousepressed(x, y, button, istouch)
+   if button == 1 then -- Versions prior to 0.10.0 use the MouseConstant 'l'
+      table.insert(P, {x, y})
+
+	v0 = getLeftMost(P)
+   	hull = {P[v0]}
+
+   p = v0
+
+   q = math.max((v0+1) % #P, 1)
+   r = 1
+
+   running = true
+
+   end
+end
+
+
 function cross(p, q, r)
 	return (q[1] - p[1]) * (r[2] - p[2]) - (q[2] - p[2]) * (r[1] - p[1])
 end
