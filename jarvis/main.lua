@@ -12,7 +12,7 @@ end
 
 function love.load()
    local screen_width, screen_height = love.graphics.getDimensions()
-   local n = 50   -- how many points we want
+   n = 50   -- how many points we want
    love.window.setTitle(string.format('Jarvis\' March with %d points', n))
    love.graphics.setPointSize(10)
 
@@ -28,7 +28,7 @@ function love.load()
 
    p = v0
 
-   q = math.max((v0+1) % #P, 1)
+   q = v0 % #P + 1
    r = 1
 
    running = true
@@ -39,15 +39,16 @@ end
 function love.mousepressed(x, y, button, istouch)
    if button == 1 then -- Versions prior to 0.10.0 use the MouseConstant 'l'
       table.insert(P, {x, y})
-
+	n = n + 1
 	v0 = getLeftMost(P)
    	hull = {P[v0]}
 
    p = v0
 
-   q = math.max((v0+1) % #P, 1)
+   q = v0 % #P + 1
    r = 1
-
+   
+   love.window.setTitle(string.format('Jarvis\' March with %d points', n))
    running = true
 
    end
@@ -67,7 +68,7 @@ function love.update(dt)
 	if running then
 		if r >= #P then
 			p = q
-	   		q = math.max((p+1) % #P, 1)
+	   		q = p % #P + 1
 			r = 1
 			table.insert(hull, P[p])
 			if p == v0 then
